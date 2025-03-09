@@ -1,96 +1,131 @@
-import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Cookies from "js-cookie";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Slider from "@mui/material/Slider";
-
-function ContinuousSlider() {
-  const [value, setValue] = React.useState(30);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  return (
-    <Box sx={{ width: 200 }}>
-      <Stack spacing={2} direction='row' sx={{ alignItems: "center", mb: 1 }}>
-        <VolumeDown />
-        <Slider aria-label='Volume' value={value} onChange={handleChange} />
-        <VolumeUp />
-      </Stack>
-      <Slider disabled defaultValue={30} aria-label='Disabled slider' />
-    </Box>
-  );
-}
+import {
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardActions,
+  Typography,
+  Box,
+  Stack,
+} from "@mui/material";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate(); // 👈 Initialize the navigate function
 
-  const handelSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
     const data = { email, password, name };
-    console.log(data);
 
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/login`,
         data
       );
-
       localStorage.setItem("token", response.data.token);
       Cookies.set("token", response.data.token, { expires: 1 });
 
       setMessage("Login successful");
+
+      // Redirect after successful login
+      setTimeout(() => navigate("/dashboard"), 1000); // Redirect after 1 second
     } catch (error) {
-      console.log("Error:", error);
-      setMessage("error ocurred");
+      console.error("Error:", error);
+      setMessage("An error occurred");
     }
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handelSubmit}>
-        <label htmlFor='email'>Email: </label>
-        <input
-          type='email'
-          id='email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
+    <Box
+      display='flex'
+      justifyContent='center'
+      alignItems='center'
+      minHeight='90vh'
+      bgcolor='#fffff'
+    >
+      <Card sx={{ width: 400, padding: 3, boxShadow: 3 }}>
+        <CardHeader
+          title='Welcome Back'
+          subheader='Enter your details to sign in'
+          sx={{ textAlign: "center" }}
         />
-
-        <label htmlFor='password'>Password: </label>
-        <input
-          type='password'
-          id='password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-
-        <div>
-          <label htmlFor='name'>Name: </label>
-          <input
-            type='text'
-            id='name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-
-        <button type='submit'>Submit</button>
-      </form>
-
-      {message && <p>{message}</p>}
-
-      <ContinuousSlider />
-    </div>
+        <CardContent>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              label='Name'
+              variant='outlined'
+              margin='normal'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <TextField
+              fullWidth
+              label='Email'
+              type='email'
+              variant='outlined'
+              margin='normal'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <TextField
+              fullWidth
+              label='Password'
+              type='password'
+              variant='outlined'
+              margin='normal'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            {message && (
+              <Typography
+                color={message.includes("successful") ? "green" : "red"}
+                textAlign='center'
+                mt={1}
+              >
+                {message}
+              </Typography>
+            )}
+            <CardActions>
+              <Button
+                type='submit'
+                variant='contained'
+                fullWidth
+                sx={{ mt: 2 }}
+              >
+                Sign In
+              </Button>
+            </CardActions>
+          </form>
+          {/* Register Button */}
+          <Stack
+            direction='row'
+            justifyContent='center'
+            alignItems='center'
+            mt={2}
+          >
+            <Typography variant='body2'>Don't have an account?</Typography>
+            <Button
+              onClick={() => navigate("/register")}
+              variant='text'
+              sx={{ ml: 1 }}
+            >
+              Register
+            </Button>
+          </Stack>
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
