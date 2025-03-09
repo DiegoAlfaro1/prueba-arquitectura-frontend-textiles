@@ -20,7 +20,7 @@ export default function Upload() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/s3/upload",
+        `${process.env.REACT_APP_API_URL}/upload`,
         formData,
         {
           headers: {
