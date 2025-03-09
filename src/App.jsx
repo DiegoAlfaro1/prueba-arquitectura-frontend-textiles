@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./Home";
 import "./App.css";
 import RegisterForm from "./RegisterForm";
-import LoginForm from "./loginForm";
+import LoginForm from "./LoginForm";
 import Upload from "./Upload";
 
 function App() {
