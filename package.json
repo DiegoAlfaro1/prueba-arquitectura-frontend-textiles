@@ -16,6 +16,7 @@
     "@mui/styled-engine-sc": "^6.4.6",
     "@tailwindcss/vite": "^4.0.9",
     "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
     "js-cookie": "^3.0.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

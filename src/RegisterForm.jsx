@@ -14,6 +14,8 @@ import {
   Checkbox,
 } from "@mui/material";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,10 +35,7 @@ export default function RegisterForm() {
     const data = { email, password, name };
 
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/register`,
-        data
-      );
+      const response = await axios.post(`${API_URL}/api/register`, data);
       setMessage(response.data.message);
 
       // Redirect to login page after successful registration

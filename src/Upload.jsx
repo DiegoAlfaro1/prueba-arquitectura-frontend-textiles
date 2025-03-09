@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import Cookies from "js-cookie";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Upload() {
   const [file, setFile] = useState(null);
 
@@ -19,16 +21,12 @@ export default function Upload() {
     formData.append("file", file); // Key should match backend expectation
 
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/upload`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(`${API_URL}/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
 
       alert("File uploaded successfully!");
       console.log(response.data);

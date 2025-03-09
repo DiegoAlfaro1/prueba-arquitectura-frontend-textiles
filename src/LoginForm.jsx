@@ -14,29 +14,28 @@ import {
   Stack,
 } from "@mui/material";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
-  const navigate = useNavigate(); // 👈 Initialize the navigate function
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = { email, password, name };
 
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/login`,
-        data
-      );
+      const response = await axios.post(`${API_URL}/api/login`, data);
       localStorage.setItem("token", response.data.token);
       Cookies.set("token", response.data.token, { expires: 1 });
 
       setMessage("Login successful");
 
       // Redirect after successful login
-      setTimeout(() => navigate("/dashboard"), 1000); // Redirect after 1 second
+      setTimeout(() => navigate("/home"), 1000); // Redirect after 1 second
     } catch (error) {
       console.error("Error:", error);
       setMessage("An error occurred");
