@@ -21,7 +21,7 @@ export default function Upload() {
     formData.append("file", file); // Key should match backend expectation
 
     try {
-      const response = await axios.post(`${API_URL}/upload`, formData, {
+      const response = await axios.post(`${API_URL}/s3/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -28,9 +28,10 @@ export default function LoginForm() {
     const data = { email, password, name };
 
     try {
-      const response = await axios.post(`${API_URL}/api/login`, data);
-      localStorage.setItem("token", response.data.token);
-      Cookies.set("token", response.data.token, { expires: 1 });
+      // Send request with credentials enabled
+      const response = await axios.post(`${API_URL}/api/login`, data, {
+        withCredentials: true, // Ensures cookies are sent/received
+      });
 
       setMessage("Login successful");
 
