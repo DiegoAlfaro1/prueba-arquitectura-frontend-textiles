@@ -4,6 +4,7 @@ import "./App.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import Upload from "./Upload";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
@@ -11,8 +12,22 @@ function App() {
       <Routes>
         <Route path='/login/' element={<LoginForm />} />
         <Route path='/register/' element={<RegisterForm />} />
-        <Route path='/home/' element={<Home />} />
-        <Route path='upload' element={<Upload />} />
+        <Route
+          path='/home/'
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='upload'
+          element={
+            <ProtectedRoute>
+              <Upload />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

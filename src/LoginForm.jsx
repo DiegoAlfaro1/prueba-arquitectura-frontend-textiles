@@ -13,6 +13,7 @@ import {
   Box,
   Stack,
 } from "@mui/material";
+import { useAuth } from "./AuthProvider";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -22,16 +23,23 @@ export default function LoginForm() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = { email, password, name };
 
     try {
-      // Send request with credentials enabled
-      const response = await axios.post(`${API_URL}/api/login`, data, {
+      await axios.post(`${API_URL}/api/login`, data, {
         withCredentials: true, // Ensures cookies are sent/received
       });
+
+      // Send request with credentials enabled
+      const response = await axios.get(`${API_URL}/api/auth/me`, {
+        withCredentials: true,
+      });
+
+      setUser(response.data.user);
 
       setMessage("Login successful");
 
