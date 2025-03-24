@@ -68,7 +68,7 @@ export default function RegisterForm() {
               variant='outlined'
               margin='normal'
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(event) => setName(event.target.value)}
               required
             />
             <TextField
@@ -78,7 +78,7 @@ export default function RegisterForm() {
               variant='outlined'
               margin='normal'
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
               required
             />
             <TextField
@@ -88,14 +88,14 @@ export default function RegisterForm() {
               variant='outlined'
               margin='normal'
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(event) => setPassword(event.target.value)}
               required
             />
             <FormControlLabel
               control={
                 <Checkbox
                   checked={termsAccepted}
-                  onChange={(e) => setTermsAccepted(e.target.checked)}
+                  onChange={(event) => setTermsAccepted(event.target.checked)}
                   color='primary'
                   sx={{ "& .MuiSvgIcon-root": { fontSize: 18 } }} // Smaller checkbox
                 />

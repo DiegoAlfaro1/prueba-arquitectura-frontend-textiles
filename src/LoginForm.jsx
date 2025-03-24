@@ -73,7 +73,7 @@ export default function LoginForm() {
               variant='outlined'
               margin='normal'
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(event) => setName(event.target.value)}
               required
             />
             <TextField
@@ -83,7 +83,7 @@ export default function LoginForm() {
               variant='outlined'
               margin='normal'
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
               required
             />
             <TextField
@@ -93,7 +93,7 @@ export default function LoginForm() {
               variant='outlined'
               margin='normal'
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(event) => setPassword(event.target.value)}
               required
             />
             {message && (
