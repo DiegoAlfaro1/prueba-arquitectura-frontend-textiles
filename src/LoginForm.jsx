@@ -31,12 +31,14 @@ export default function LoginForm() {
 
     try {
       await axios.post(`${API_URL}/api/login`, data, {
-        withCredentials: true, // Ensures cookies are sent/received
+        withCredentials: true,
+        headers: { "x-api-key": "api-key" }, // Ensures cookies are sent/received
       });
 
       // Send request with credentials enabled
       const response = await axios.get(`${API_URL}/api/auth/me`, {
         withCredentials: true,
+        headers: { "x-api-key": "api-key" },
       });
 
       setUser(response.data.user);

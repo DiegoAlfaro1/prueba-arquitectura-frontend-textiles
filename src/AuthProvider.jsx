@@ -33,7 +33,11 @@ export const AuthProvider = ({ children }) => {
   }, [user, location.pathname]); // Re-run on user change or URL change
 
   const logout = async () => {
-    await axios.post(`${API_URL}/api/logout`, {}, { withCredentials: true });
+    await axios.post(
+      `${API_URL}/api/logout`,
+      {},
+      { withCredentials: true, headers: { "x-api-key": "api-key" } }
+    );
     setUser(null);
   };
 

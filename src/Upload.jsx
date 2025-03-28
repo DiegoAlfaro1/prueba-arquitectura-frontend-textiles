@@ -24,6 +24,7 @@ export default function Upload() {
       const response = await axios.post(`${API_URL}/s3/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          "x-api-key": "api-key",
         },
         withCredentials: true,
       });

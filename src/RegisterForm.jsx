@@ -35,7 +35,10 @@ export default function RegisterForm() {
     const data = { email, password, name };
 
     try {
-      const response = await axios.post(`${API_URL}/api/register`, data);
+      const response = await axios.post(`${API_URL}/api/register`, data, {
+        withCredentials: true,
+        headers: { "x-api-key": "api-key" },
+      });
       setMessage(response.data.message);
 
       // Redirect to login page after successful registration

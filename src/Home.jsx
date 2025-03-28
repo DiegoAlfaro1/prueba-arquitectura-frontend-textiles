@@ -9,7 +9,11 @@ function Home() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await axios.post(`${API_URL}/api/logout`, {}, { withCredentials: true });
+    await axios.post(
+      `${API_URL}/api/logout`,
+      {},
+      { withCredentials: true, headers: { "x-api-key": "api-key" } }
+    );
     logout();
     navigate("/login");
   };
