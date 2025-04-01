@@ -18,10 +18,14 @@ export const AuthProvider = ({ children }) => {
       location.pathname !== "/register"
     ) {
       axios
-        .get(`${API_URL}/api/auth/me`, { withCredentials: true })
+        .get(`${API_URL}/api/auth/me`, {
+          withCredentials: true,
+          headers: { "x-api-key": "api-key" },
+        })
         .then((res) => setUser(res.data.user))
         .catch((error) => {
           if (error.response) {
+            console.log(error);
             console.warn("Acceso denegado");
             setUser(null);
           }
