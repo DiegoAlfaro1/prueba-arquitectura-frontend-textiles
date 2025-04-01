@@ -3,6 +3,7 @@ import { useAuth } from "./AuthProvider";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import { useState } from "react";
+import BotonPago from "./BotonPago"; // ✅ Importar el botón de pago
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -39,6 +40,7 @@ function Home() {
   return (
     <div>
       <h1>Welcome to My React App</h1>
+
       <nav>
         <Button variant='contained'>
           <Link to='/upload'>Upload</Link>
@@ -54,11 +56,12 @@ function Home() {
           <img src={imageUrl} alt='Product' />
         </div>
       )}
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
 
+      <br />
+      <h2>Pago con Mercado Pago</h2>
+      <BotonPago /> {/* ✅ Botón de pago integrado */}
+
+      <br /><br />
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
