@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import "./App.css";
 import RegisterForm from "./RegisterForm";
@@ -6,6 +6,7 @@ import LoginForm from "./LoginForm";
 import Upload from "./Upload";
 import ProtectedRoute from "./ProtectedRoute";
 import { AuthProvider } from "./AuthProvider";
+import Checkout from "./Checkout"; // ✅ Importa el componente de Checkout
 
 function App() {
   return (
@@ -23,10 +24,18 @@ function App() {
             }
           />
           <Route
-            path='upload'
+            path='/upload'
             element={
               <ProtectedRoute>
                 <Upload />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/checkout' // ✅ Ruta protegida para ir al pago
+            element={
+              <ProtectedRoute>
+                <Checkout />
               </ProtectedRoute>
             }
           />
