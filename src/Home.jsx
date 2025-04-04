@@ -25,7 +25,7 @@ function Home() {
   const handleGetImage = async () => {
     try {
       const response = await axios.get(
-        `${API_URL}/s3/images/1740439302693-f210cf52db93505f5be2c4e5f477504e.jpg`,
+        `${API_URL}/s3/images/1743786663760-de7d6f8790f1119bf5299f1d15af8726.jpg`,
         {},
         { withCredentials: true, headers: { "x-api-key": "api-key" } }
       );
@@ -40,28 +40,24 @@ function Home() {
   return (
     <div>
       <h1>Welcome to My React App</h1>
-
       <nav>
         <Button variant='contained'>
           <Link to='/upload'>Upload</Link>
         </Button>
       </nav>
-
       <Button variant='contained' onClick={handleGetImage}>
         Obtener imagen de S3
       </Button>
-
       {imageUrl && (
         <div className='image-container'>
           <img src={imageUrl} alt='Product' />
         </div>
       )}
-
       <br />
       <h2>Pago con Mercado Pago</h2>
       <BotonPago /> {/* ✅ Botón de pago integrado */}
-
-      <br /><br />
+      <br />
+      <br />
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
