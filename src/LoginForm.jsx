@@ -27,18 +27,25 @@ export default function LoginForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const csrfToken = Cookies.get("csrfToken");
     const data = { email, password, name };
 
     try {
       await axios.post(`${API_URL}/api/login`, data, {
         withCredentials: true,
-        headers: { "x-api-key": "api-key" }, // Ensures cookies are sent/received
+        headers: {
+          "x-api-key": "api-key",
+          "X-CSRF-Token": csrfToken,
+        },
       });
 
       // Send request with credentials enabled
       const response = await axios.get(`${API_URL}/api/auth/me`, {
         withCredentials: true,
-        headers: { "x-api-key": "api-key" },
+        headers: {
+          "x-api-key": "api-key",
+          "X-CSRF-Token": csrfToken,
+        },
       });
 
       setUser(response.data.user);
@@ -55,45 +62,45 @@ export default function LoginForm() {
 
   return (
     <Box
-      display='flex'
-      justifyContent='center'
-      alignItems='center'
-      minHeight='90vh'
-      bgcolor='#fffff'
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="90vh"
+      bgcolor="#fffff"
     >
       <Card sx={{ width: 400, padding: 3, boxShadow: 3 }}>
         <CardHeader
-          title='Welcome Back'
-          subheader='Enter your details to sign in'
+          title="Welcome Back"
+          subheader="Enter your details to sign in"
           sx={{ textAlign: "center" }}
         />
         <CardContent>
           <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
-              label='Name'
-              variant='outlined'
-              margin='normal'
+              label="Name"
+              variant="outlined"
+              margin="normal"
               value={name}
               onChange={(event) => setName(event.target.value)}
               required
             />
             <TextField
               fullWidth
-              label='Email'
-              type='email'
-              variant='outlined'
-              margin='normal'
+              label="Email"
+              type="email"
+              variant="outlined"
+              margin="normal"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required
             />
             <TextField
               fullWidth
-              label='Password'
-              type='password'
-              variant='outlined'
-              margin='normal'
+              label="Password"
+              type="password"
+              variant="outlined"
+              margin="normal"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required
@@ -101,7 +108,7 @@ export default function LoginForm() {
             {message && (
               <Typography
                 color={message.includes("successful") ? "green" : "red"}
-                textAlign='center'
+                textAlign="center"
                 mt={1}
               >
                 {message}
@@ -109,8 +116,8 @@ export default function LoginForm() {
             )}
             <CardActions>
               <Button
-                type='submit'
-                variant='contained'
+                type="submit"
+                variant="contained"
                 fullWidth
                 sx={{ mt: 2 }}
               >
@@ -120,15 +127,15 @@ export default function LoginForm() {
           </form>
           {/* Register Button */}
           <Stack
-            direction='row'
-            justifyContent='center'
-            alignItems='center'
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
             mt={2}
           >
-            <Typography variant='body2'>Don't have an account?</Typography>
+            <Typography variant="body2">Don't have an account?</Typography>
             <Button
               onClick={() => navigate("/register")}
-              variant='text'
+              variant="text"
               sx={{ ml: 1 }}
             >
               Register
