@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import Cookies from "js-cookie";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -38,7 +37,7 @@ export default function Upload() {
 
   return (
     <div>
-      <input type='file' onChange={handleFileChange} />
+      <input type="file" onChange={handleFileChange} />
       <button onClick={handleUpload}>Upload File</button>
     </div>
   );

@@ -4,6 +4,7 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import BotonPago from "./BotonPago"; // ✅ Importar el botón de pago
+import useCsrfToken from "./hooks/useCsrfToken";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -12,11 +13,16 @@ function Home() {
   const [imageUrl, setImageUrl] = useState(null);
   const navigate = useNavigate();
 
+  const csrfToken = useCsrfToken();
+
   const handleLogout = async () => {
     await axios.post(
       `${API_URL}/api/logout`,
       {},
-      { withCredentials: true, headers: { "x-api-key": "api-key" } }
+      {
+        withCredentials: true,
+        headers: { "x-api-key": "api-key", "X-CSRF-Token": csrfToken },
+      }
     );
     logout();
     navigate("/login");
@@ -27,7 +33,10 @@ function Home() {
       const response = await axios.get(
         `${API_URL}/s3/images/1740439302693-f210cf52db93505f5be2c4e5f477504e.jpg`,
         {},
-        { withCredentials: true, headers: { "x-api-key": "api-key" } }
+        {
+          withCredentials: true,
+          headers: { "x-api-key": "api-key", "X-CSRF-Token": csrfToken },
+        }
       );
 
       const url = response.data.url;
@@ -40,28 +49,24 @@ function Home() {
   return (
     <div>
       <h1>Welcome to My React App</h1>
-
       <nav>
-        <Button variant='contained'>
-          <Link to='/upload'>Upload</Link>
+        <Button variant="contained">
+          <Link to="/upload">Upload</Link>
         </Button>
       </nav>
-
-      <Button variant='contained' onClick={handleGetImage}>
+      <Button variant="contained" onClick={handleGetImage}>
         Obtener imagen de S3
       </Button>
-
       {imageUrl && (
-        <div className='image-container'>
-          <img src={imageUrl} alt='Product' />
+        <div className="image-container">
+          <img src={imageUrl} alt="Product" />
         </div>
       )}
-
       <br />
       <h2>Pago con Mercado Pago</h2>
       <BotonPago /> {/* ✅ Botón de pago integrado */}
-
-      <br /><br />
+      <br />
+      <br />
       <button onClick={handleLogout}>Logout</button>
     </div>
   );

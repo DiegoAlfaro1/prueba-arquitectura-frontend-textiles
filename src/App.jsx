@@ -13,10 +13,10 @@ function App() {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path='/login/' element={<LoginForm />} />
-          <Route path='/register/' element={<RegisterForm />} />
+          <Route path="/login/" element={<LoginForm />} />
+          <Route path="/register/" element={<RegisterForm />} />
           <Route
-            path='/home/'
+            path="/home/"
             element={
               <ProtectedRoute>
                 <Home />
@@ -24,7 +24,7 @@ function App() {
             }
           />
           <Route
-            path='/upload'
+            path="/upload"
             element={
               <ProtectedRoute>
                 <Upload />
@@ -32,7 +32,7 @@ function App() {
             }
           />
           <Route
-            path='/checkout' // ✅ Ruta protegida para ir al pago
+            path="/checkout" // ✅ Ruta protegida para ir al pago
             element={
               <ProtectedRoute>
                 <Checkout />
@@ -40,7 +40,7 @@ function App() {
             }
           />
           <Route
-            path='/'
+            path="/"
             element={
               <ProtectedRoute>
                 <Home />

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useCsrfToken from "./hooks/useCsrfToken";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -24,6 +25,8 @@ export default function RegisterForm() {
   const [termsAccepted, setTermsAccepted] = useState(false); // New state for checkbox
   const navigate = useNavigate(); // Initialize the navigate function
 
+  const csrfToken = useCsrfToken();
+
   const handelSubmit = async (event) => {
     event.preventDefault();
 
@@ -37,7 +40,7 @@ export default function RegisterForm() {
     try {
       const response = await axios.post(`${API_URL}/api/register`, data, {
         withCredentials: true,
-        headers: { "x-api-key": "api-key" },
+        headers: { "x-api-key": "api-key", "X-CSRF-Token": csrfToken },
       });
       setMessage(response.data.message);
 
@@ -51,45 +54,45 @@ export default function RegisterForm() {
 
   return (
     <Box
-      display='flex'
-      justifyContent='center'
-      alignItems='center'
-      minHeight='90vh'
-      bgcolor='#fffff'
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="90vh"
+      bgcolor="#fffff"
     >
       <Card sx={{ width: 400, padding: 3, boxShadow: 3 }}>
         <CardHeader
-          title='Create an Account'
-          subheader='Enter your details to sign up'
+          title="Create an Account"
+          subheader="Enter your details to sign up"
           sx={{ textAlign: "center" }}
         />
         <CardContent>
           <form onSubmit={handelSubmit}>
             <TextField
               fullWidth
-              label='Name'
-              variant='outlined'
-              margin='normal'
+              label="Name"
+              variant="outlined"
+              margin="normal"
               value={name}
               onChange={(event) => setName(event.target.value)}
               required
             />
             <TextField
               fullWidth
-              label='Email'
-              type='email'
-              variant='outlined'
-              margin='normal'
+              label="Email"
+              type="email"
+              variant="outlined"
+              margin="normal"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required
             />
             <TextField
               fullWidth
-              label='Password'
-              type='password'
-              variant='outlined'
-              margin='normal'
+              label="Password"
+              type="password"
+              variant="outlined"
+              margin="normal"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required
@@ -99,26 +102,26 @@ export default function RegisterForm() {
                 <Checkbox
                   checked={termsAccepted}
                   onChange={(event) => setTermsAccepted(event.target.checked)}
-                  color='primary'
+                  color="primary"
                   sx={{ "& .MuiSvgIcon-root": { fontSize: 18 } }} // Smaller checkbox
                 />
               }
               label={
-                <Typography variant='body2' sx={{ fontSize: "0.75rem" }}>
+                <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
                   I agree to the{" "}
                   <a
-                    href='/terms-of-service'
-                    target='_blank'
-                    rel='noopener noreferrer'
+                    href="/terms-of-service"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{ fontSize: "0.75rem" }}
                   >
                     Terms of Service
                   </a>{" "}
                   and{" "}
                   <a
-                    href='/privacy-policy'
-                    target='_blank'
-                    rel='noopener noreferrer'
+                    href="/privacy-policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{ fontSize: "0.75rem" }}
                   >
                     Privacy Policy
@@ -129,7 +132,7 @@ export default function RegisterForm() {
             {message && (
               <Typography
                 color={message.includes("successful") ? "green" : "red"}
-                textAlign='center'
+                textAlign="center"
                 mt={2}
               >
                 {message}
@@ -137,8 +140,8 @@ export default function RegisterForm() {
             )}
             <CardActions>
               <Button
-                type='submit'
-                variant='contained'
+                type="submit"
+                variant="contained"
                 fullWidth
                 sx={{ mt: 2 }}
               >
@@ -149,14 +152,14 @@ export default function RegisterForm() {
         </CardContent>
         <div style={{ textAlign: "center", marginBottom: "16px" }}>
           <Typography
-            variant='body2'
-            color='textSecondary'
+            variant="body2"
+            color="textSecondary"
             sx={{ fontSize: "0.75rem" }}
           >
             Already have an account?{" "}
             <Button
               onClick={() => navigate("/login")}
-              variant='text'
+              variant="text"
               sx={{ fontSize: "0.75rem" }}
             >
               Sign In
