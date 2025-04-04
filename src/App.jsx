@@ -7,16 +7,19 @@ import Upload from "./Upload";
 import ProtectedRoute from "./ProtectedRoute";
 import { AuthProvider } from "./AuthProvider";
 import Checkout from "./Checkout"; // ✅ Importa el componente de Checkout
+import useCsrfToken from "./assets/hooks/useCsrfToken";
 
 function App() {
+  useCsrfToken();
+
   return (
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path='/login/' element={<LoginForm />} />
-          <Route path='/register/' element={<RegisterForm />} />
+          <Route path="/login/" element={<LoginForm />} />
+          <Route path="/register/" element={<RegisterForm />} />
           <Route
-            path='/home/'
+            path="/home/"
             element={
               <ProtectedRoute>
                 <Home />
@@ -24,7 +27,7 @@ function App() {
             }
           />
           <Route
-            path='/upload'
+            path="/upload"
             element={
               <ProtectedRoute>
                 <Upload />
@@ -32,7 +35,7 @@ function App() {
             }
           />
           <Route
-            path='/checkout' // ✅ Ruta protegida para ir al pago
+            path="/checkout" // ✅ Ruta protegida para ir al pago
             element={
               <ProtectedRoute>
                 <Checkout />
@@ -40,7 +43,7 @@ function App() {
             }
           />
           <Route
-            path='/'
+            path="/"
             element={
               <ProtectedRoute>
                 <Home />
